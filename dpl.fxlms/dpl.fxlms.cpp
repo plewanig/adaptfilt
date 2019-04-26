@@ -2,14 +2,7 @@
 //
 
 #include <fftw3.h>
-// #include <iostream>
 
-	/*
-	 * Compile with the following arguments:
-	 *      gcc fftw3_r2c_usage.c -o fftw3_r2c_usage -lfftw3 -lm
-	 *
-	 * Make sure that you installed fftw3 in your machine first.
-	 */
 
 int main(int argc, char* argv[])
 {
@@ -21,17 +14,7 @@ int main(int argc, char* argv[])
 	fftw_plan p; /* the plan */
 
 	out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) * (N / 2 + 1) );
-
-	/*
-	 * An fftw plan cares only about the size of in and out,
-	 * not about actual values. Can (and should) be re-used.
-	 * Daniel: How to reuse when in and out are part of the definition?
-	 */
 	p = fftw_plan_dft_r2c_1d(N, in, out, FFTW_ESTIMATE);
-	
-	/*
-	 * Execute the dft as indicated by the plan
-	 */
 	fftw_execute(p);
 
 	/*
@@ -41,9 +24,6 @@ int main(int argc, char* argv[])
 		printf("out[%d] = %f i%f\n", i, out[i][0], out[i][1]);
 	}
 
-	/*
-	 * Clean routine
-	 */
 	fftw_destroy_plan(p); 
 	fftw_free(out);
 
